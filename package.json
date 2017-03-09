@@ -2,9 +2,13 @@
   "name": "timestamp",
   "version": "1.0.0",
   "description": "First backend project for freecodecamp.com",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "jasmine-node spec"
+    "test": "jasmine-node spec",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "7.0.0"
   },
   "repository": {
     "type": "git",
