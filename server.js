@@ -1,5 +1,6 @@
 var express = require('express');
 var moment  = require('moment');
+var port = process.env.PORT || 3000
 var app = express();
 var datestring, unixMoment, stringMoment;
 
@@ -23,8 +24,8 @@ app.get('/:datestring', function (req, res) {
   res.end();
 })
 
-app.listen(3000, function () {
-  console.log('App listening on port 3000')
+app.listen(port, function () {
+  console.log('App listening on port' + port)
 })
 
 function makeJsonResponse(m) {
