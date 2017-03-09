@@ -1,19 +1,21 @@
 var express = require('express');
 var moment  = require('moment');
 var app = express();
+var datestring, unixMoment, stringMoment;
 
 app.get('/', function(req,res) {
   res.send("Welcome screen");
 });
 
 app.get('/:datestring', function (req, res) {
-  if (moment(req.params.datestring).isValid()) {
-    var result = moment.utc(req.params.datestring);
-    res.json({unix:Number(result.format('X')),natural:result.format('MMMM D, YYYY')});
+  datestring = req.params.datestring;
+  stringMoment = moment.utc(datestring);
+  unixMoment = moment.unix(Number(datestring));
+  if (stringMoment.isValid()) {
+    res.json(makeJsonResponse(stringMoment));
   }
-  else if (moment(Number(req.params.datestring)).isValid()) {
-    var result = moment.unix(Number(req.params.datestring));
-    res.json({unix:Number(result.format('X')),natural:result.format('MMMM D, YYYY')});;
+  else if (unixMoment.isValid()) {
+    res.json(makeJsonResponse(unixMoment));;
   }
   else {
     res.json({unix:null,natural:null});
@@ -22,5 +24,12 @@ app.get('/:datestring', function (req, res) {
 })
 
 app.listen(3000, function () {
-  console.log('App listening on port 3000!')
+  console.log('App listening on port 3000')
 })
+
+function makeJsonResponse(m) {
+  return {
+    unix:    Number(m.format('X')),
+    natural: m.format('MMMM D, YYYY')
+  };
+}
