@@ -45,6 +45,12 @@ describe("Timestamp server", function() {
       });
     });
     it("returns Unix and natural datestrings", function(done) {
+      request.get(base_url + string_query.input, function(error, response, body) {
+        expect(JSON.parse(body)).toEqual(string_query.output);
+        done();
+      });
+    });
+    it("can respond to a Unix timestamp input", function(done) {
       request.get(base_url + simple_query.input, function(error, response, body) {
         expect(JSON.parse(body)).toEqual(simple_query.output);
         done();
